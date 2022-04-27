@@ -1,0 +1,31 @@
+type Property {
+  address: String!
+  challenges: [Challenge!] @relation
+}
+
+type Challenge {
+  created: Time!
+  property: Property!
+  group: Group!
+  guesses: [Guess!] @relation
+  askingPrice: Float!
+  soldForPrice: Float!
+  dateSold: Time!
+}
+
+type Group {
+  challenges: [Challenge!] @relation
+  users: [User!] @relation
+}
+
+type User {
+  name: String!
+  groups: [Group!] @relation
+  guesses: [Guess!] @relation
+}
+
+type Guess {
+  price: Float!
+  challenge: Challenge!
+  user: User!
+}
