@@ -6,8 +6,8 @@ require('dotenv').config();
 const environment = argv.environment;
 const isProduction = environment === 'prod';
 const targetPath = isProduction
-  ? `./environments/environment.prod.ts`
-  : `./environments/environment.ts`;
+  ? `./src/environments/environment.prod.ts`
+  : `./src/environments/environment.ts`;
 const environmentBlankFileContent = `
 export const environment = {
 };
@@ -22,11 +22,11 @@ export const environment = {
 };
 `;
 // always write an empty non-prod file to prevent an error
-writeFile(`./environments/environment.ts`, environmentBlankFileContent, function (err: any) {
+writeFile(`./src/environments/environment.ts`, environmentBlankFileContent, function (err: any) {
   if (err) {
     console.log(err);
   }
-  console.log(`Wrote blank file to './environments/environment.ts'`);
+  console.log(`Wrote blank file to './src/environments/environment.ts'`);
 });
 // write the content to the respective file
 writeFile(targetPath, environmentFileContent, function (err: any) {
