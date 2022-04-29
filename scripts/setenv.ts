@@ -8,26 +8,19 @@ const isProduction = environment === 'prod';
 const targetPath = isProduction
   ? `./src/environments/environment.prod.ts`
   : `./src/environments/environment.ts`;
-const environmentBlankFileContent = `
-export const environment = {
-};
-`;
 // we have access to our environment variables
 // in the process.env object thanks to dotenv
 const environmentFileContent = `
 export const environment = {
    production: ${isProduction},
-   faundadbGraphQLEndpoint: 'https://graphql.fauna.com/graphql',
-   faundadbSecret: "${process.env['FAUNADB_SECRET']}",
+
 };
 `;
-// always write an empty non-prod file to prevent an error
-writeFile(`./src/environments/environment.ts`, environmentBlankFileContent, function (err: any) {
-  if (err) {
-    console.log(err);
-  }
-  console.log(`Wrote blank file to './src/environments/environment.ts'`);
-});
+
+// Legacy values that I am not sure we need here for production
+// faundadbGraphQLEndpoint: 'https://graphql.fauna.com/graphql',
+// faundadbSecret: "${process.env['FAUNADB_SECRET']}",
+
 // write the content to the respective file
 writeFile(targetPath, environmentFileContent, function (err: any) {
   if (err) {
