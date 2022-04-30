@@ -4,10 +4,22 @@
   "scripts": {
     "ng": "ng",
     "config": "ts-node ./scripts/setenv.ts",
-    "start": "npm run config -- --environment=dev && ng serve",
-    "build": "npm run config -- --environment=prod && ng build",
+    "start": "npm-run-all --parallel start:app start:server",
+    "start:app": "npm run config -- --environment=dev && ng serve",
+    "start:server": "netlify dev",
+    "build": "npm-run-all --parallel build:**",
+    "build:app": "npm run config -- --environment=prod && ng build",
+    "build:functions": "netlify deploy",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
+  },
+  "proxy": {
+    "/netlify/functions": {
+      "target": "http://localhost:9000",
+      "pathRewrite": {
+        "^/\\netlify/functions": ""
+      }
+    }
   },
   "private": true,
   "dependencies": {
@@ -21,6 +33,9 @@
     "@angular/platform-browser": "~13.3.0",
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
+    "@netlify/functions": "^1.0.0",
+    "faunadb": "^4.5.4",
+    "netlify-cli": "^10.1.0",
     "rxjs": "~7.5.0",
     "ts-node": "^10.7.0",
     "tslib": "^2.3.0",
@@ -39,6 +54,8 @@
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "netlify-lambda": "^2.0.15",
+    "npm-run-all": "^4.1.5",
     "typescript": "~4.6.2",
     "yargs": "^17.4.1"
   }

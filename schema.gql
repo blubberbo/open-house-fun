@@ -1,5 +1,9 @@
 type Property {
   address: String!
+  redfinURL: String!
+  askingPrice: Float!
+  soldForPrice: Float!
+  dateSold: Time!
   challenges: [Challenge!] @relation
 }
 
@@ -8,9 +12,6 @@ type Challenge {
   property: Property!
   group: Group!
   guesses: [Guess!] @relation
-  askingPrice: Float!
-  soldForPrice: Float!
-  dateSold: Time!
 }
 
 type Group {
