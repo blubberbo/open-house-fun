@@ -1,27 +1,38 @@
-# OpenHouseFun
+# Open House Fun
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.3.
+This is an app created for a game my family plays while visiting open houses. After we check out a house, we each guess how much the house will sell for. After the property sells, we get points based on how close all the guesses were.
 
-## Development server
+## Running in Development
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+To run this project in development:
 
-## Code scaffolding
+- clone the repo
+- run `npm i`
+- run `npm start`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Deployment
 
-## Build
+To fully deploy this app:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Front-end: commit and push to the `main` branch - Netlify will automatically deploy
+- Back-end: run `netlify deploy` from your command line
+- DB: edit the database directly
 
-## Running unit tests
+Details below:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Angular Front-end
 
-## Running end-to-end tests
+The Angular app is hosted on Netlify at [Open House Fun](https://open-house-fun.netlify.app/) and is automatically deployed whenever code is pushed to the `main` branch of this repo (for reference: [Open House Fun repo](https://github.com/blubberbo/)open-house-fun)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Serverless Back-end (Netlify Functions)
 
-## Further help
+The serverless backend functions that connect the Angular app to the FaunaDB can be deployed by running `netlify deploy`, which will push the `/functions` folder to the Netlify app (as specified in the `./netlify.toml` file).
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### FaundaDB
+
+Database edits can be made directly in the database using the FaunaDB web ui, with a CLI, or using HTTPS calls. The schema for the db is housed in the `./schema.gql` file and can be imported directly into a fresh FaunaDB instance.
+
+There are two databases, one for development and one for production. Both require authentication. Note: the FaundaDB secret is not needed on the front end, and is only used by the Netlify Serverless Back-end Functions.
+
+- [development database](https://dashboard.fauna.com/db/global/open-house-fun-db_test)
+- there is not currently a production database, as the app is still in development
